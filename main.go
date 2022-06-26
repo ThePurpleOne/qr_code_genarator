@@ -15,6 +15,6 @@ func main() {
 		}
 	}
 
-	pix.save_to_png(pixel_scaler)
+	pix.save_to_png(pixel_scaler, "test.png")
 
 }

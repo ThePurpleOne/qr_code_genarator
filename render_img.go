@@ -26,6 +26,10 @@ func (p* pixels) set_pixel(x, y int, value bool) {
 	p.data[y * p.h + x] = value
 }
 
+func (p* pixels) get_pixel(x, y int) bool {
+	return p.data[y * p.h + x]
+}
+
 func (p pixels)to_img(scaler int) image.Image {
 	surface := image.Rect(0, 0, p.w * scaler, p.h * scaler)
 	img := image.NewRGBA(surface)
@@ -42,8 +46,8 @@ func (p pixels)to_img(scaler int) image.Image {
 	return img
 }
 
-func (p pixels)save_to_png(scaler int){
-	f, err := os.Create("image.png")
+func (p pixels)save_to_png(scaler int, filename string) {
+	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println(err)
 		return
