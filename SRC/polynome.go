@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 type polynomial struct {
-	coefs []int64
-	mod int64
+	coefs []float64
+	mod float64
 }
 
-func create_poly(coefs []int64, mod int64) polynomial {
+func create_poly(coefs []float64, mod float64) polynomial {
 	return polynomial{coefs, mod}
 }
 
@@ -47,7 +48,7 @@ func (p polynomial)add(p2 polynomial) polynomial{
 		}
 	}
 
-	out_coefs := make([]int64, len(p.coefs))
+	out_coefs := make([]float64, len(p.coefs))
 	for i := 0; i < len(p.coefs); i++ {
 		out_coefs[i] = p.coefs[i] + p2.coefs[i]
 	}
@@ -55,20 +56,20 @@ func (p polynomial)add(p2 polynomial) polynomial{
 }
 
 func (p polynomial)mul(p2 polynomial) polynomial{
-	out_coefs := make([]int64, len(p.coefs) + len(p2.coefs) - 1)
+	out_coefs := make([]float64, len(p.coefs) + len(p2.coefs) - 1)
 	for i := 0; i < len(p.coefs); i++ {
 		for j := 0; j < len(p2.coefs); j++ {
-			out_coefs[i+j] += p.coefs[i] * p2.coefs[j] % p.mod
+			out_coefs[i+j] += math.Mod(p.coefs[i] * p2.coefs[j], p.mod)
 		}
 	}
 	return create_poly(out_coefs, p.mod)
 }
 
-func (p polynomial)eval(x int64) int64{
-	out := int64(0)
+func (p polynomial)eval(x float64) float64{
+	out := float64(0)
 	// USING HORNER's METHOD
 	for i := len(p.coefs) - 1; i >= 0; i-- {
 		out = (out * x + p.coefs[i])
 	}
-	return out % p.mod
+	return math.Mod(out, p.mod)
 }

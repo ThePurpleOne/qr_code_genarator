@@ -37,10 +37,10 @@ func euclide_check(a, b, x, y, pgcd int64) bool {
 	return false
 }
 
-func inverse_mul(a, p int64) int64 {
-	gcd, x, _ := extended_euclide(a, p)
+func inverse_mul(a, p float64) float64 {
+	gcd, x, _ := extended_euclide(int64(a), int64(p))
 	if gcd != 1 {
 		panic("gcd != 1")
 	}
-	return x
+	return float64(x)
 }

@@ -78,3 +78,8 @@ gcd, x, y := extended_euclidean(a, b)
 ```go
 x := mult_inverse(a, b)
 ```
+
+## REED SOLOMON
+
+### MESSAGE ENCODING (Reed-Solomon)
+
