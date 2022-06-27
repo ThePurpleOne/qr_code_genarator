@@ -42,7 +42,16 @@ func euclide_check(a, b, x, y, pgcd int64) bool {
 }
 
 func inverse_mul(a, p float64) float64 {
+	
+	if a < 0{
+		a += p
+	}
+
 	gcd, x, y := extended_euclide(int64(a), int64(p))
+	fmt.Printf("A : %f\n", a)
+	fmt.Printf("P : %f\n", p)
+	fmt.Printf("GCD : %d\n", gcd)
+
 	if gcd != 1 {
 		panic("gcd != 1")
 	}

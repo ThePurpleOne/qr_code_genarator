@@ -29,8 +29,8 @@ func main() {
 	fmt.Println("\n\n\n ----- TESTING POLINOMIALS -----")
 
 	//a := create_poly([]int64{3, 3, 1, 0, 2}, 5)
-	a := create_poly([]float64{1, 3, 2}, 6987)
-	b := create_poly([]float64{3, -4, 2}, 6987)
+	a := create_poly([]float64{1, 3, 2})
+	b := create_poly([]float64{3, -4, 2})
 	
 	fmt.Printf("a : ")
 	a.show()
@@ -74,7 +74,7 @@ func main() {
 
 	fmt.Printf("FLOAT MOD : %f %% %f = %f\n", test1, test2, math.Mod(test1, test2) )
 
-	list_of_points := []float64{1, 3, 5, 7}
-	lgr := get_lagrange_poly(list_of_points, 6987)
+	list_of_points := []float64{4, 3, 6}
+	lgr := get_lagrange_poly(list_of_points)
 	lgr.show()
 }

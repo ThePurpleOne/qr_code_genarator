@@ -2,16 +2,14 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 type polynomial struct {
 	coefs []float64
-	mod float64
 }
 
-func create_poly(coefs []float64, mod float64) polynomial {
-	return polynomial{coefs, mod}
+func create_poly(coefs []float64) polynomial {
+	return polynomial{coefs}
 }
 
 func (p* polynomial)show() {
@@ -33,9 +31,6 @@ func (p* polynomial)show() {
 }
 
 func (p polynomial)add(p2 polynomial) polynomial{
-	if p.mod != p2.mod {
-		panic("Cannot add polynomials with different mod")
-	}
 
 	// PADDING WITH 0 IF LENGTHS ARE DIFFERENT
 	if len(p.coefs) > len(p2.coefs) {
@@ -52,27 +47,18 @@ func (p polynomial)add(p2 polynomial) polynomial{
 	for i := 0; i < len(p.coefs); i++ {
 		out_coefs[i] = p.coefs[i] + p2.coefs[i]
 	}
-	return create_poly(out_coefs, p.mod)
+	return create_poly(out_coefs)
 }
 
 func (p polynomial)mul(p2 polynomial) polynomial{
 	out_coefs := make([]float64, len(p.coefs) + len(p2.coefs) - 1)
 	for i := 0; i < len(p.coefs); i++ {
 		for j := 0; j < len(p2.coefs); j++ {
-			out_coefs[i+j] += math.Mod(p.coefs[i] * p2.coefs[j], p.mod)
+			out_coefs[i+j] += p.coefs[i] * p2.coefs[j]
 		}
 	}
-	return create_poly(out_coefs, p.mod)
+	return create_poly(out_coefs)
 }
-
-//def mul(self, poly_2):
-//	coeff_poly_res = [0] * (len(self.coefs) + len(poly_2.coefs) - 1)
-//	for index_1, value_1 in enumerate(self.coefs):
-//		for index_2, value_2 in enumerate(poly_2.coefs):
-//			coeff_poly_res[index_1 + index_2] += (value_1 * value_2) % self.prime_mod
-//	return polynome(coeff_poly_res)
-
-
 
 
 func (p polynomial)eval(x float64) float64{
@@ -81,5 +67,5 @@ func (p polynomial)eval(x float64) float64{
 	for i := len(p.coefs) - 1; i >= 0; i-- {
 		out = (out * x + p.coefs[i])
 	}
-	return math.Mod(out, p.mod)
+	return out
 }
