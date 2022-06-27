@@ -17,7 +17,11 @@ func main() {
 
 	pix.save_to_png("test.png", pixel_scaler)
 
-	a := create_poly([]int64{4, 56, 69, 2, 4}, 5)
+	// ! TESTING POLYNOMIAL
+	a := create_poly([]int64{3, 3, 1, 0, 2}, 5)
+	b := create_poly([]int64{1, 1, 3, -4, 2}, 5)
 	a.show()
-
+	b.show()
+	c := a.add(b)
+	c.show()
 }
