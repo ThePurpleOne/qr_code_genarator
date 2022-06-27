@@ -63,3 +63,13 @@ func (p polynomial)mul(p2 polynomial) polynomial{
 	}
 	return create_poly(out_coefs, p.mod)
 }
+
+func (p polynomial)eval(x int64) int64{
+	out := int64(0)
+	// USING HORNER's METHOD
+	for i := len(p.coefs) - 1; i >= 0; i-- {
+		out = (out * x + p.coefs[i])
+		fmt.Println(out)
+	}
+	return out % p.mod
+}
