@@ -49,7 +49,7 @@ func main() {
 
 	// ! TESTING EXTENDED EUCLIDE 
 	fmt.Println("\n\n\n ----- TESTING EUCLIDE -----")
-	nb_a := int64(4991)
+	nb_a := int64(499115)
 	nb_b := int64(1197)
 	gcd, x, y := extended_euclide(nb_a, nb_b)
 	fmt.Printf("gcd(%d, %d) = %d\n", nb_a, nb_b, gcd)
@@ -60,4 +60,6 @@ func main() {
 	fmt.Printf("%d^-1 mod %d = %d\n", nb_a, nb_b, x)
 	fmt.Printf("%d^-1 mod %d = %d\n", nb_b, nb_a, y)
 
+	fmt.Printf("Mult Inverse of %d mod %d : %d\n", nb_a, nb_b, inverse_mul(nb_a, nb_b))
+	fmt.Printf("Mult Inverse of %d mod %d : %d\n", nb_b, nb_a, inverse_mul(nb_b, nb_a))
 }

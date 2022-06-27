@@ -1,13 +1,14 @@
 # QR CODE GENERATOR
 
-## POLYNOMIAL MANIPULARION
-### CREATE POLYNOMIAL
+## Polynomial manpulation
+
+### Create Polynomial
 > Second parameter is a modulo
 ```go
 b := create_poly([]int64{1, 1, 3, -4, 2}, 5)
 ```
 
-### SHOW POLYNOMIAL
+### Show Polynomial
 ```go
 b.show()
 ```
@@ -16,17 +17,17 @@ OUTPUTS
 2x^4 + -4x^3 + 3x^2 + 1x^1 + 1
 ```
 
-### ADD POLYNOMIALS
+### Add Polynomial
 ```go
 add_ab := a.add(b)
 ```
 
-### MUL POLYNOMIALS
+### Multiply Polynomial
 ```go
 mul_ab := a.mul(b)
 ```
 
-### EVAL POLYNOMIAL
+### Evaluate Polynomial
 ```go
 x := int64(7)
 ax := a.eval(x)
@@ -34,31 +35,46 @@ ax := a.eval(x)
 
 --- 
 
-## PNG RENDERING API
-### CREATE PIXELS OBJECT
+## PNG Rendering API
+### Create Pixels object
 ```go
 pix := create_pixel_array(w, h)
 ```
 
-### SET A PIXEL
+### Set a pixel
 ```go
 pix.set_pixel(x, y, true)
 ```
 
-### GET A PIXEL
+### Get a pixel
 ```go
 pix.get_pixel(x, y)
 ```
 
-### ENCODE PIXELS INTO PNG
+### Encode pixels into PNG
 ```go
 img := pix.to_img()
 ```
 
-### SAVE PIXELS OBJECT INTO A PNG FILE
+### SAVE Pixels object to PNG
 ```go
 pix.save_to_png(10, "image.png")
 ```
 
-### OUTPUT
+### Output
 ![](ASSETS/test.png)
+
+---
+
+## Multiplicative Inverse
+### Extended Euclidean Algorithm
+> x, y are Bézout coefficients
+```go
+gcd, x, y := extended_euclidean(a, b)
+```
+
+### Find Multiplicative Inverse
+> Find a^-1 mod b
+```go
+x := mult_inverse(a, b)
+```

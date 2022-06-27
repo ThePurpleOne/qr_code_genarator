@@ -10,10 +10,6 @@ func abs(x int64) int64 {
 func extended_euclide(a int64, b int64) (int64, int64, int64) {
 	a, b = abs(a), abs(b)
 
-	if b > a {
-		a, b = b, a
-	}
-
 	if b == 0 {
 		panic("b == 0")
 	}
@@ -34,51 +30,17 @@ func extended_euclide(a int64, b int64) (int64, int64, int64) {
 	return old_r, old_s, old_t
 }
 
-//func extended_euclide(a int64, b int64) (int64, int64, int64) {
-//	a, b = abs(a), abs(b)
-
-//	if b > a {
-//		a, b = b, a
-//	}
-
-//	if b == 0 {
-//		panic("b == 0")
-//	}
-
-//	// INITALIZING ARRAYS FOR r, q, x, y
-//	r := make([]int64, 100)
-//	q := make([]int64, 100)
-//	x := make([]int64, 100)
-//	y := make([]int64, 100)
-//	step := 2
-
-//	// INIT
-//	r[0] = a
-//	r[1] = b
-
-//	x[0] = 1
-//	x[1] = 0
-
-//	y[0] = 0
-//	y[1] = 1
-
-//	for r[1] != 0 {
-//		r[step] = a % b
-//		q[step] = a / b
-//		x[step] = x[step-2] - q[step]*x[step-1]
-//		y[step] = y[step-2] - q[step]*y[step-1]
-
-//		a, b = b, r[step]
-//		step++
-//	}
-
-//	// PGCD, x, y
-//	return r[step-2], x[step-2], y[step-2]
-//}
-
 func euclide_check(a, b, x, y, pgcd int64) bool {
 	if pgcd == (a*x + b*y) {
 		return true
 	}
 	return false
+}
+
+func inverse_mul(a, p int64) int64 {
+	gcd, x, _ := extended_euclide(a, p)
+	if gcd != 1 {
+		panic("gcd != 1")
+	}
+	return x
 }
