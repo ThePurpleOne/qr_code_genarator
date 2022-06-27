@@ -21,5 +21,5 @@ img := pix.to_img()
 
 ### SAVE PIXELS OBJECT INTO A PNG FILE
 ```go
-pix.save_to_png("image.png")
+pix.save_to_png(10, "image.png")
 ```

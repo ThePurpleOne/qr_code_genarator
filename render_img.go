@@ -46,7 +46,7 @@ func (p pixels)to_img(scaler int) image.Image {
 	return img
 }
 
-func (p pixels)save_to_png(scaler int, filename string) {
+func (p pixels)save_to_png(filename string, scaler int) {
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println(err)

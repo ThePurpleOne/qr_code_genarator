@@ -15,6 +15,9 @@ func main() {
 		}
 	}
 
-	pix.save_to_png(pixel_scaler, "test.png")
+	pix.save_to_png("test.png", pixel_scaler)
+
+	a := create_poly([]int64{4, 56, 69, 2, 4}, 5)
+	a.show()
 
 }
