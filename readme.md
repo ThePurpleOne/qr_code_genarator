@@ -1,5 +1,47 @@
 # QR CODE GENERATOR
 
+## Version
+I'll try version 10 for now. 
+- Standard ECC200 ISO/IEC 15434  (i think) 
+- 57 x 57 px
+- Up to 174 characters (395 ALPHA WITH LOW DATA CORRECTION)
+
+## Error Correction Level
+- L : 7% recovery capacity.
+- M : 15% recovery capacity. (default)
+- Q : 25% recovery capacity.
+- H : 30% recovery capacity.
+
+## Placing everything
+
+### Finder patterns
+3 finder patterns to help the scanner find the QR code.
+![](ASSETS/finder.png)
+
+
+
+
+
+
+
+## SOURCES
+https://en.wikipedia.org/wiki/QR_code
+LIVRE : https://1lib.ch/book/21301139/f37eda
+NORME : https://1lib.ch/book/6042350/45e9cc
+INSANE HELP : https://www.thonky.com/qr-code-tutorial/module-placement-matrix#:~:text=The%20finder%20patterns%20are%20always,which%20version%20is%20in%20use.
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Polynomial manpulation
 
 ### Create Polynomial

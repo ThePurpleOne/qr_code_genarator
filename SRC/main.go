@@ -2,13 +2,22 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
-func main() {
+func main(){
+	
+	code1 := create_qr_code(10, 5)
+	code1.add_margin()
+	code1.add_finders()
+	code1.add_timing_patterns()
+	code1.save_to_png("code.png")
+}
+
+
+func test() {
 
 	// ! TESTING PIXEL RENDERING
-	fmt.Println("\n\n\n ----- TESTING PIXELS RENDERING -----")
+	fmt.Println("\n\n----- TESTING PIXELS RENDERING -----")
 
 	pixel_scaler := 10
 	w, h := 21, 21
@@ -26,9 +35,8 @@ func main() {
 	pix.save_to_png("test.png", pixel_scaler)
 
 	// ! TESTING POLYNOMIAL
-	fmt.Println("\n\n\n ----- TESTING POLINOMIALS -----")
+	fmt.Println("\n\n ----- TESTING POLINOMIALS -----")
 
-	//a := create_poly([]int64{3, 3, 1, 0, 2}, 5)
 	a := create_poly([]float64{1, 3, 2})
 	b := create_poly([]float64{3, -4, 2})
 	
@@ -50,7 +58,7 @@ func main() {
 	fmt.Printf("a(%f) = %f\n", x_, ax)
 
 	// ! TESTING EXTENDED EUCLIDE 
-	fmt.Println("\n\n\n ----- TESTING EUCLIDE -----")
+	fmt.Println("\n\n ----- TESTING EUCLIDE -----")
 	nb_a := float64(499115)
 	nb_b := float64(1197)
 	gcd, x, y := extended_euclide(int64(nb_a), int64(nb_b))
@@ -67,13 +75,7 @@ func main() {
 	fmt.Printf("Mult Inverse of %f mod %f : %f\n", nb_b, nb_a, inverse_mul(nb_b, nb_a))
 
 	// ! TESTING LAGRANGE  
-	fmt.Println("\n\n\n ----- TESTING LAGRANGE -----")
-
-	test1 := 200.1
-	test2 := 100.05
-
-	fmt.Printf("FLOAT MOD : %f %% %f = %f\n", test1, test2, math.Mod(test1, test2) )
-
+	fmt.Println("\n\n----- TESTING LAGRANGE -----")
 	list_of_points := []float64{4, 3, 6}
 	lgr := get_lagrange_poly(list_of_points)
 	lgr.show()
