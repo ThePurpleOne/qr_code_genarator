@@ -22,6 +22,9 @@ func main() {
 	b := create_poly([]int64{1, 1, 3, -4, 2}, 5)
 	a.show()
 	b.show()
-	c := a.add(b)
-	c.show()
+	add_ab := a.add(b)
+	add_ab.show()
+
+	mul_ab := a.mul(b)
+	mul_ab.show()
 }

@@ -53,3 +53,13 @@ func (p polynomial)add(p2 polynomial) polynomial{
 	}
 	return create_poly(out_coefs, p.mod)
 }
+
+func (p polynomial)mul(p2 polynomial) polynomial{
+	out_coefs := make([]int64, len(p.coefs) + len(p2.coefs) - 1)
+	for i := 0; i < len(p.coefs); i++ {
+		for j := 0; j < len(p2.coefs); j++ {
+			out_coefs[i+j] += p.coefs[i] * p2.coefs[j] % p.mod
+		}
+	}
+	return create_poly(out_coefs, p.mod)
+}
