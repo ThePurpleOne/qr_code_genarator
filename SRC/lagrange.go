@@ -1,24 +1,32 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 func get_lagrange_poly(points []float64, prime float64) polynomial {
 
 	// CREATE POLYNOMIALS
-	poly_l := make([]float64, len(points))
-	poly := create_poly(poly_l, prime)
+	//poly_l := 
+	poly := create_poly(make([]float64, len(points)), prime)
 
 	for x_i := 0; x_i < len(points); x_i++ {
 		y_i := points[x_i]
 		poly_n := create_poly([]float64{1}, prime)
 
 		for x_k := 0; x_k < len(points); x_k++ {
-			y_k := points[x_k]
+			fmt.Printf("x_i : %d\n", x_i)
+			fmt.Printf("x_k : %d\n", x_k)
+
 			if x_i != x_k {
-				d := inverse_mul(math.Mod((y_i-y_k), prime), prime)
-				poly_n = poly_n.mul(create_poly([]float64{math.Mod(-y_k*d, prime), math.Mod(d, prime)}, prime))
+				test := (float64(x_i)-float64(x_k))
+				fmt.Printf("x_i - x_k : %f\n", test)
+				d := inverse_mul(math.Mod((float64(x_i)-float64(x_k)), prime), prime)
+				poly_n = poly_n.mul(create_poly([]float64{math.Mod(-float64(x_k)*d, prime), math.Mod(d, prime)}, prime))
 			}
 		}
+		poly_n = poly_n.mul(create_poly([]float64{math.Mod(float64(y_i), prime)}, prime))
 		poly = poly.add(poly_n)
 	}
 	return poly

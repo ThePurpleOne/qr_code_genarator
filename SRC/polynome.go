@@ -20,7 +20,7 @@ func (p* polynomial)show() {
 		coef := ""
 		
 		if p.coefs[i] != 0 { 	// AVOID SHOWING 0
-			coef = fmt.Sprintf("%d", p.coefs[i])			
+			coef = fmt.Sprintf("%.02f", p.coefs[i])			
 			if i != 0 { 		// NOT 0's degree
 				power = fmt.Sprintf("x^%d + ", i)
 			}
@@ -64,6 +64,16 @@ func (p polynomial)mul(p2 polynomial) polynomial{
 	}
 	return create_poly(out_coefs, p.mod)
 }
+
+//def mul(self, poly_2):
+//	coeff_poly_res = [0] * (len(self.coefs) + len(poly_2.coefs) - 1)
+//	for index_1, value_1 in enumerate(self.coefs):
+//		for index_2, value_2 in enumerate(poly_2.coefs):
+//			coeff_poly_res[index_1 + index_2] += (value_1 * value_2) % self.prime_mod
+//	return polynome(coeff_poly_res)
+
+
+
 
 func (p polynomial)eval(x float64) float64{
 	out := float64(0)

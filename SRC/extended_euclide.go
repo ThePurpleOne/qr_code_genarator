@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"math"
+)
+
 func abs(x int64) int64 {
 	if x < 0 {
 		return -x
@@ -10,24 +15,23 @@ func abs(x int64) int64 {
 func extended_euclide(a int64, b int64) (int64, int64, int64) {
 	a, b = abs(a), abs(b)
 
-	if b == 0 {
-		panic("b == 0")
-	}
-
 	// INIT
 	old_r, r := a, b
 	old_s, s := int64(1), int64(0)
-	old_t, t := int64(0), int64(1)
 
 	for r != 0 {
 		q := old_r / r
 		old_r, r = r, (old_r - q*r)
 		old_s, s = s, (old_s - q*s)
-		old_t, t = t, (old_t - q*t)
+	}
+
+	bez_t := int64(0)
+	if b != 0 {
+		bez_t = (old_r - old_s * a) / b
 	}
 
 	// GCD, x, y
-	return old_r, old_s, old_t
+	return old_r, old_s, bez_t
 }
 
 func euclide_check(a, b, x, y, pgcd int64) bool {
@@ -38,9 +42,26 @@ func euclide_check(a, b, x, y, pgcd int64) bool {
 }
 
 func inverse_mul(a, p float64) float64 {
-	gcd, x, _ := extended_euclide(int64(a), int64(p))
+	gcd, x, y := extended_euclide(int64(a), int64(p))
 	if gcd != 1 {
 		panic("gcd != 1")
 	}
+
+	fmt.Printf("a : %f\n", a)
+	fmt.Printf("x : %d\n", x)
+
+	xf := float64(x)
+	
+	if euclide_check(int64(a), int64(p), x, y, gcd){
+		println("TRUE")
+	}else{
+		println("FALSE")
+	}
+
+
+	c := math.Mod(a * xf, p)
+
+	fmt.Printf("c = %f\n", c)
+
 	return float64(x)
 }
