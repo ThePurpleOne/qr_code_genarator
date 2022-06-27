@@ -1,3 +1,5 @@
+# QR CODE GENERATOR
+
 ## POLYNOMIAL MANIPULARION
 ### CREATE POLYNOMIAL
 > Second parameter is a modulo

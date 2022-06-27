@@ -69,7 +69,6 @@ func (p polynomial)eval(x int64) int64{
 	// USING HORNER's METHOD
 	for i := len(p.coefs) - 1; i >= 0; i-- {
 		out = (out * x + p.coefs[i])
-		fmt.Println(out)
 	}
 	return out % p.mod
 }
