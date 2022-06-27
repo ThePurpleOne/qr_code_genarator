@@ -61,4 +61,4 @@ pix.save_to_png(10, "image.png")
 ```
 
 ### OUTPUT
-![](test.png)
+![](ASSETS/test.png)
