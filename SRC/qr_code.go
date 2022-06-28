@@ -8,17 +8,15 @@ type qr_code struct {
 
 func create_qr_code(version int, margin int) qr_code {
 
-	if version == 10 {
-		return qr_code{create_pixel_array(57+margin, 57+margin), version, margin}
-	} else {
-		panic("NOT IMPLEMENTED")
-	}
+	nb_modules := (version-1)*4 + 21
+	return qr_code{create_pixel_array(nb_modules+margin+1, nb_modules+margin+1), version, margin}
 }
 
 /**
 *	Brief : Add Quiete Zone to the QR Code
 **/
 func (q *qr_code) add_margin() {
+
 	for y := 0; y < q.pix.h; y++ {
 		for x := 0; x < q.pix.w; x++ {
 			if x < q.margin || x >= q.pix.w-q.margin || y < q.margin || y >= q.pix.h-q.margin {
@@ -31,8 +29,8 @@ func (q *qr_code) add_margin() {
 func (q *qr_code) add_finders() {
 
 	q.add_finder(q.margin+3, q.margin+3)         // TOP LEFT FINDER
-	q.add_finder(q.pix.w-q.margin-5, q.margin+3) // TOP RIGHT FINDER
-	q.add_finder(q.margin+3, q.pix.h-q.margin-5) // BOTTOM LEFT FINDER
+	q.add_finder(q.pix.w-q.margin-4, q.margin+3) // TOP RIGHT FINDER
+	q.add_finder(q.margin+3, q.pix.h-q.margin-4) // BOTTOM LEFT FINDER
 }
 
 func (q *qr_code) add_finder(center_x, center_y int) {
@@ -79,6 +77,40 @@ func (q *qr_code) add_timing_patterns() {
 	}
 }
 
-func (q *qr_code) save_to_png(filename string) {
-	q.pix.save_to_png(filename, 10)
+func (q *qr_code) add_alignement_patterns() {
+	// 6, 28, 50
+	// HARD CODED FOR NOW
+	a, b, c := 6, 26, 46
+
+	q.add_alignement_pattern(q.margin+a, q.margin+b)
+	q.add_alignement_pattern(q.margin+b, q.margin+a)
+
+	//q.add_alignement_pattern(q.margin+a, q.margin+c) // ONTO FINDER
+	//q.add_alignement_pattern(q.margin+c, q.margin+a) // ONTO FINDER
+
+	q.add_alignement_pattern(q.margin+b, q.margin+c)
+	q.add_alignement_pattern(q.margin+c, q.margin+b)
+
+	//q.add_alignement_pattern(q.margin+a, q.margin+a) // ONTO FINDER
+	q.add_alignement_pattern(q.margin+b, q.margin+b)
+	q.add_alignement_pattern(q.margin+c, q.margin+c)
+}
+
+func (q *qr_code) add_alignement_pattern(center_x, center_y int) {
+
+	for x := center_x - 2; x < center_x+3; x++ {
+		for y := center_y - 2; y < center_y+3; y++ {
+			if x < center_x-1 || x > center_x+1 || y < center_y-1 || y > center_y+1 {
+				q.pix.set_pixel(x, y, false)
+			} else {
+				q.pix.set_pixel(x, y, true)
+			}
+		}
+	}
+
+	q.pix.set_pixel(center_x, center_y, false)
+}
+
+func (q *qr_code) save_to_png(filename string, scale int) {
+	q.pix.save_to_png(filename, scale)
 }

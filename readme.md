@@ -29,6 +29,8 @@ https://en.wikipedia.org/wiki/QR_code
 LIVRE : https://1lib.ch/book/21301139/f37eda
 NORME : https://1lib.ch/book/6042350/45e9cc
 INSANE HELP : https://www.thonky.com/qr-code-tutorial/module-placement-matrix#:~:text=The%20finder%20patterns%20are%20always,which%20version%20is%20in%20use.
+ALIGNEMENT TABLE : https://www.thonky.com/qr-code-tutorial/alignment-pattern-locations
+https://dev.to/maxart2501/let-s-develop-a-qr-code-generator-part-viii-different-sizes-1e0e
 
 
 

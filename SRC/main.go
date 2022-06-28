@@ -10,7 +10,8 @@ func main(){
 	code1.add_margin()
 	code1.add_finders()
 	code1.add_timing_patterns()
-	code1.save_to_png("code.png")
+	code1.add_alignement_patterns()
+	code1.save_to_png("code.png", 10)
 }
 
 
