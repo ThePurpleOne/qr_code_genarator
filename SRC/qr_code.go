@@ -26,6 +26,23 @@ func (q *qr_code) add_margin() {
 	}
 }
 
+func (q *qr_code) add_timing_patterns() {
+
+	y := q.margin + 6
+	for x := q.margin + 8; x < q.pix.w-q.margin-8; x++ {
+		if x%2 == 0 {
+			q.pix.set_pixel(x, y, true)
+		}
+	}
+	x := q.margin + 6
+	for y := q.margin + 8; y < q.pix.w-q.margin-8; y++ {
+		if y%2 == 0 {
+			q.pix.set_pixel(x, y, true)
+		}
+	}
+}
+
+// ! FINDER
 func (q *qr_code) add_finders() {
 
 	q.add_finder(q.margin+3, q.margin+3)         // TOP LEFT FINDER
@@ -61,22 +78,7 @@ func (q *qr_code) add_finder(center_x, center_y int) {
 	}
 }
 
-func (q *qr_code) add_timing_patterns() {
-
-	y := q.margin + 6
-	for x := q.margin + 8; x < q.pix.w-q.margin-8; x++ {
-		if x%2 == 0 {
-			q.pix.set_pixel(x, y, true)
-		}
-	}
-	x := q.margin + 6
-	for y := q.margin + 8; y < q.pix.w-q.margin-8; y++ {
-		if y%2 == 0 {
-			q.pix.set_pixel(x, y, true)
-		}
-	}
-}
-
+// ! ALIGNEMENT
 func (q *qr_code) add_alignement_patterns() {
 	// 6, 28, 50
 	// HARD CODED FOR NOW
@@ -109,6 +111,10 @@ func (q *qr_code) add_alignement_pattern(center_x, center_y int) {
 	}
 
 	q.pix.set_pixel(center_x, center_y, false)
+}
+
+func (q *qr_code) add_dark_module() {
+	q.pix.set_pixel(q.margin+8, (4*q.version)+9, false)
 }
 
 func (q *qr_code) save_to_png(filename string, scale int) {

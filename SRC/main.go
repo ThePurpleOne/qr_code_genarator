@@ -11,6 +11,7 @@ func main(){
 	code1.add_finders()
 	code1.add_timing_patterns()
 	code1.add_alignement_patterns()
+	code1.add_dark_module()
 	code1.save_to_png("code.png", 10)
 }
 
