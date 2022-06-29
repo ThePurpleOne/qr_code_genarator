@@ -28,9 +28,9 @@ func test() {
 
 	for i := 0; i < w*h; i++ {
 		if i%2 == 0 {
-			pix.data[i] = true
+			pix.data[i] = WHITE
 		} else {
-			pix.data[i] = false
+			pix.data[i] = BLACK
 		}
 	}
 
