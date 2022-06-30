@@ -13,6 +13,14 @@ func main(){
 	code1.add_alignement_patterns()
 	code1.add_dark_module()
 	code1.save_to_png("code.png", 10)
+
+	a := encode_text("Hello World")
+
+	for _, n := range(a) {
+        fmt.Printf(" %08b", n) // prints 00000000 11111101
+    }
+
+	fmt.Println(a)
 }
 
 

@@ -1,6 +1,12 @@
 # QR CODE GENERATOR
 
-## Version
+## SPEC FOR NOW
+VERSION 10 (57x57)
+ERROR CORRECTION Low
+DATA ENCODING UTF-8
+
+
+## Version 10
 I'll try version 10 for now. 
 - Standard ECC200 ISO/IEC 15434  (i think) 
 - 57 x 57 px
@@ -11,6 +17,67 @@ I'll try version 10 for now.
 - M : 15% recovery capacity. (default)
 - Q : 25% recovery capacity.
 - H : 30% recovery capacity.
+
+## DATA
+### Data Encoding
+[GREAT HELP HERE](https://www.thonky.com/qr-code-tutorial/data-encoding)
+
+There is 4 encoding modes you can chose from:
+- (0001) Numeric [0..9]
+- (0010) Alphanumeric [A..Z, 0..9, {'$', '%', '*', '+', '-', '.', '/', ' '}]
+- (0100) Byte [0..255] (8-bit) (default) - (Generaly characters form ISO-8859-1)
+- (1000) Kanji [0..1023] extended Kanji characters - Cmon don't use this.
+> I'll probably only use Byte mode encoded in UTF-8 for now since i'll mainly use this for Links. I think that most Readers support UTF-8.
+[ENCODING IN BYTES](https://www.thonky.com/qr-code-tutorial/byte-mode-encoding)
+
+The 4 bits code is the encoding mode indicator.
+
+### Data Length
+The lenght of the message encoded must be specified. It has to respect a certain size depending on the version
+
+![](ASSETS/size_of_char_count.png)
+
+
+>e.g.
+for version 10, the message "HEY GRAHAM" encoded in byte mode is 10 bytes long.
+The number 10 has to be encoded in 16 bits (padded with 0s if necessary)
+So : 0b0000'0000'0000'1010 = 10
+
+### Data settings bits
+Now that we know how to select an encoding mode and the get the lenght of the message, we can build the bit whole bit "string".
+
+We just need to concatenate the 4 bits encoding code and the length of the message: 
+> 0100 || 0b0000'0000'0000'1010 = 0b0100'0000'0000'0000'1010
+
+### Final Data
+We now have to concatane everythin: The encoding mode, the lenght of the message and the message itself.
+
+
+Example with HEY GRAHAM (10 char of 8 (pad with zeroes if only 7) bits = 80 bytes)
+|---| Encoding Mode | Length | Message | Terminator |
+|---| ------------ | ------ | ------- | --- |
+Size (bits)| 4        |  16    | 80     | 4         |
+Value | 4        | 10      | 72 101 108 108 111 32 87 111 114 108 100 | 0
+Value | 0b0100        | 0b0000'0000'0000'1010      |01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100 | 0000
+
+The thing is, The QR code needs to have all its bits full, this means we need to pad the data until we reach the maximum size
+
+#### Maximum size
+The max size depends on the version, correction level and the encoding mode, since i've chosen version 10, low correction and byte encoding, the maximum data size is:
+
+
+|Version and EC Level |Total Number of Data Codewords for this Version and EC Level|EC Codewords Per Block|Number of Blocks in Group 1|Number of Data Codewords in Each of Group 1's Blocks|Number of Blocks in Group 2| Number of Data Codewords in Each of Group 2's Blocks|Total Data Codewords|
+|--|--|--|--|--|--|--|--|
+|10-L | 274|	18|	2|	68|	2|	69|	(68*2) + (69*2) = 274|
+
+EC Codewords Per Block = Error correction bytes per block
+## BLOCK ? WTF
+
+
+
+
+
+
 
 ## Placing everything
 
@@ -27,6 +94,12 @@ The format information is needed.
 ![](ASSETS/format-layout.png)
 
 
+## MODULES USED
+[Polynomial Manipulation](polynomial.md)
+[PNG Rendering](png.md)
+
+
+
 ## SOURCES
 https://en.wikipedia.org/wiki/QR_code
 LIVRE : https://1lib.ch/book/21301139/f37eda
@@ -36,86 +109,11 @@ ALIGNEMENT TABLE : https://www.thonky.com/qr-code-tutorial/alignment-pattern-loc
 https://dev.to/maxart2501/let-s-develop-a-qr-code-generator-part-viii-different-sizes-1e0e
 
 
-## Polynomial manpulation
 
-### Create Polynomial
-> Second parameter is a modulo
-```go
-b := create_poly([]int64{1, 1, 3, -4, 2}, 5)
-```
 
-### Show Polynomial
-```go
-b.show()
-```
-OUTPUTS 
-```go
-2x^4 + -4x^3 + 3x^2 + 1x^1 + 1
-```
-
-### Add Polynomial
-```go
-add_ab := a.add(b)
-```
-
-### Multiply Polynomial
-```go
-mul_ab := a.mul(b)
-```
-
-### Evaluate Polynomial
-```go
-x := int64(7)
-ax := a.eval(x)
-```
 
 --- 
 
-## PNG Rendering API
-### Create Pixels object
-```go
-pix := create_pixel_array(w, h)
-```
 
-### Set a pixel
-```go
-pix.set_pixel(x, y, true)
-```
 
-### Get a pixel
-```go
-pix.get_pixel(x, y)
-```
-
-### Encode pixels into PNG
-```go
-img := pix.to_img()
-```
-
-### SAVE Pixels object to PNG
-```go
-pix.save_to_png(10, "image.png")
-```
-
-### Output
-![](ASSETS/test.png)
-
----
-
-## Multiplicative Inverse
-### Extended Euclidean Algorithm
-> x, y are Bézout coefficients
-```go
-gcd, x, y := extended_euclidean(a, b)
-```
-
-### Find Multiplicative Inverse
-> Find a^-1 mod b
-```go
-x := mult_inverse(a, b)
-```
-
-## REED SOLOMON
-
-### MESSAGE ENCODING (Reed-Solomon)
 

@@ -11,12 +11,15 @@ const (
 )
 
 type qr_code struct {
-	pix     pixels
-	version int
-	margin  int
-	format  int
-	correct correction_level
+	pix            pixels
+	version        int
+	margin         int
+	formating_mode int
+	correct        correction_level
 }
+
+const MODE_INDICATOR = 0b0010 // MODE BYTE
+const ERROR_CORRECTION = LOW
 
 func create_qr_code(version int, margin int) qr_code {
 	nb_modules := (version-1)*4 + 21
@@ -28,7 +31,7 @@ func (q *qr_code) modify_correction_level(correct correction_level) {
 }
 
 func (q *qr_code) modify_format(new_format int) {
-	q.format = new_format
+	q.formating_mode = new_format
 }
 
 func (q *qr_code) add_margin() {
@@ -144,4 +147,10 @@ func (q *qr_code) add_dark_module() {
 
 func (q *qr_code) save_to_png(filename string, scale int) {
 	q.pix.save_to_png(filename, scale)
+}
+
+// ! ---------------------- UTILS ----------------------
+
+func encode_text(text string) []byte {
+	return []byte(text)
 }
