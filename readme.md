@@ -50,8 +50,7 @@ We just need to concatenate the 4 bits encoding code and the length of the messa
 > 0100 || 0b0000'0000'0000'1010 = 0b0100'0000'0000'0000'1010
 
 ### Final Data
-We now have to concatane everythin: The encoding mode, the lenght of the message and the message itself.
-
+We now have to concatenate everything: The encoding mode, the lenght of the message and the message itself.
 
 Example with HEY GRAHAM (10 char of 8 (pad with zeroes if only 7) bits = 80 bytes)
 |---| Encoding Mode | Length | Message | Terminator |
@@ -63,15 +62,18 @@ Value | 0b0100        | 0b0000'0000'0000'1010      |01001000 01100101 01101100 0
 The thing is, The QR code needs to have all its bits full, this means we need to pad the data until we reach the maximum size
 
 #### Maximum size
-The max size depends on the version, correction level and the encoding mode, since i've chosen version 10, low correction and byte encoding, the maximum data size is:
-
+The max size depends on the version, correction level [source](https://www.thonky.com/qr-code-tutorial/error-correction-table), since i've chosen version 10 and low correction so the maximum data size is: 274 bytes.
 
 |Version and EC Level |Total Number of Data Codewords for this Version and EC Level|EC Codewords Per Block|Number of Blocks in Group 1|Number of Data Codewords in Each of Group 1's Blocks|Number of Blocks in Group 2| Number of Data Codewords in Each of Group 2's Blocks|Total Data Codewords|
 |--|--|--|--|--|--|--|--|
-|10-L | 274|	18|	2|	68|	2|	69|	(68*2) + (69*2) = 274|
+|10-L | 274|	18|	2|	68|	2|	69|	(68 * 2) + (69 * 2) = 274|
 
 EC Codewords Per Block = Error correction bytes per block
-## BLOCK ? WTF
+
+The data has to be brokenb down into groups depending on the version. These groups can again be broken down into blocks. Each group may contain multiple blocks, and each block may contain a given amount of data codewords. 
+For example, the data for version 10, level L has 274 data codewords, and each group contains 2 blocks, each block of group 1 contains 68 data codewords, and each block of group 2 contains 69 data codewords. Thus the maximum number of codewords is 68 * 2 + 69 * 2 = 274. This includes the data + error correction codewords. Each block has a total of 18 error correction codewords. So the total number of codewords we can use for the actual data is  274 - (18 * 2) = 252.
+
+
 
 
 
