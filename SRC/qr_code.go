@@ -149,7 +149,56 @@ func (q *qr_code) save_to_png(filename string, scale int) {
 	q.pix.save_to_png(filename, scale)
 }
 
-// ! ---------------------- UTILS ----------------------
+// ! ----------------------------------------------
+// ! -------------------- DATA --------------------
+// ! ----------------------------------------------
+
+const MAX_DATA = 102
+
+type data_block struct {
+	data             []byte
+	error_correction []byte
+}
+
+type data_group struct {
+	block1 data_block
+	block2 data_block
+}
+
+// TAKES DATA STRING AND PUTS IT INTO STRING OF '0's and '1's WITH ERROR CORRECTION
+// IT HAS TO FILL BOTH THE BLOCKS, IF THE DATA ISNT LONG ENOUGH, IT WILL BE PADDED
+func create_data_block(data string) (data_block, data_block) {
+	// SIZES AND ALL HARD CODED FOR NOW
+	// MAX DATA :
+	// 50 bytes / block pour for group 1
+	// 51 bytes / block pour for group 2
+
+	// PAD WITH HARD CODED 11101100 00010001 if needed
+	for len(data) < MAX_DATA {
+		if len(data)%2 == 0 {
+			data += string(0b11101100)
+		} else {
+			data += string(0b00010001)
+		}
+	}
+
+	// SPLIT INTO TWO BLOCKS
+	block1 := data[:50]
+	block2 := data[50:]
+
+	// ENCODE DATA
+	block1_encoded := []byte(block1)
+	block2_encoded := []byte(block2)
+
+	
+
+}
+
+func create_data_group(block1, block2 data_block) data_group {
+	return data_group{block1, block2}
+}
+
+// ! -------------------- UTILS --------------------
 
 func encode_text(text string) []byte {
 	return []byte(text)

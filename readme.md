@@ -59,7 +59,7 @@ Size (bits)| 4        |  16    | 80     | 4         |
 Value | 4        | 10      | 72 101 108 108 111 32 87 111 114 108 100 | 0
 Value | 0b0100        | 0b0000'0000'0000'1010      |01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100 | 0000
 
-The thing is, The QR code needs to have all its bits full, this means we need to pad the data until we reach the maximum size
+The thing is, The QR code needs to have all its bits full, this means we need to pad the data until we reach the maximum size. So we have to pad with "11101100 00010001" until we reach the max lenght :  [SOURCE](https://www.thonky.com/qr-code-tutorial/data-encoding).
 
 #### Maximum size
 The max size depends on the version, correction level [source](https://www.thonky.com/qr-code-tutorial/error-correction-table), since i've chosen version 10 and low correction so the maximum data size is: 274 bytes.
@@ -70,14 +70,12 @@ The max size depends on the version, correction level [source](https://www.thonk
 
 EC Codewords Per Block = Error correction bytes per block
 
-The data has to be brokenb down into groups depending on the version. These groups can again be broken down into blocks. Each group may contain multiple blocks, and each block may contain a given amount of data codewords. 
+The data has to be broken down into groups depending on the version. These groups can again be broken down into blocks. Each group may contain multiple blocks, and each block may contain a given amount of data codewords. 
 For example, the data for version 10, level L has 274 data codewords, and each group contains 2 blocks, each block of group 1 contains 68 data codewords, and each block of group 2 contains 69 data codewords. Thus the maximum number of codewords is 68 * 2 + 69 * 2 = 274. This includes the data + error correction codewords. Each block has a total of 18 error correction codewords. So the total number of codewords we can use for the actual data is  274 - (18 * 2) = 252.
 
+![](ASSETS/qr_code_genarator-data_blocks.png)
 
-
-
-
-
+I think that we first have to create the padded data codewords. We then have to divide the data into 2 * 50 and 2 * 51 and add the error correction codewords. to create actual blocks
 
 
 
@@ -104,18 +102,19 @@ The format information is needed.
 
 ## SOURCES
 https://en.wikipedia.org/wiki/QR_code
+
 LIVRE : https://1lib.ch/book/21301139/f37eda
+
 NORME : https://1lib.ch/book/6042350/45e9cc
-INSANE HELP : https://www.thonky.com/qr-code-tutorial/module-placement-matrix#:~:text=The%20finder%20patterns%20are%20always,which%20version%20is%20in%20use.
+
+INSANE HELP : https://www.thonky.com/qr-code-tutorial/
+module-placement-matrix#:~:text=The%20finder%20patterns%20are%20always,
+which%20version%20is%20in%20use.
+
 ALIGNEMENT TABLE : https://www.thonky.com/qr-code-tutorial/alignment-pattern-locations
-https://dev.to/maxart2501/let-s-develop-a-qr-code-generator-part-viii-different-sizes-1e0e
 
+https://dev.to/maxart2501/
+let-s-develop-a-qr-code-generator-part-viii-different-sizes-1e0e
 
-
-
-
---- 
-
-
-
+NASA REED SOLOMON : https://ntrs.nasa.gov/citations/19900019023
 
