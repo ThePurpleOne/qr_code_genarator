@@ -153,7 +153,7 @@ func (q *qr_code) save_to_png(filename string, scale int) {
 // ! -------------------- DATA --------------------
 // ! ----------------------------------------------
 
-const MAX_DATA = 102
+const MAX_DATA = 202
 
 type data_block struct {
 	data             []byte
@@ -189,8 +189,6 @@ func create_data_block(data string) (data_block, data_block) {
 	// ENCODE DATA
 	block1_encoded := []byte(block1)
 	block2_encoded := []byte(block2)
-
-	
 
 }
 
