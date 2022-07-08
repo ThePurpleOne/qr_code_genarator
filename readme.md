@@ -2,9 +2,10 @@
 
 ## SPEC FOR NOW
 VERSION 10 (57x57)
-ERROR CORRECTION Low
-DATA ENCODING UTF-8
 
+ERROR CORRECTION Low
+
+DATA ENCODING UTF-8
 
 ## Version 10
 I'll try version 10 for now. 
@@ -98,8 +99,6 @@ The format information is needed.
 [Polynomial Manipulation](polynomial.md)
 [PNG Rendering](png.md)
 
-
-
 ## SOURCES
 https://en.wikipedia.org/wiki/QR_code
 
@@ -107,14 +106,11 @@ LIVRE : https://1lib.ch/book/21301139/f37eda
 
 NORME : https://1lib.ch/book/6042350/45e9cc
 
-INSANE HELP : https://www.thonky.com/qr-code-tutorial/
-module-placement-matrix#:~:text=The%20finder%20patterns%20are%20always,
-which%20version%20is%20in%20use.
+INSANE HELP : https://www.thonky.com/qr-code-tutorial/module-placement-matrix
 
 ALIGNEMENT TABLE : https://www.thonky.com/qr-code-tutorial/alignment-pattern-locations
 
-https://dev.to/maxart2501/
-let-s-develop-a-qr-code-generator-part-viii-different-sizes-1e0e
+https://dev.to/maxart2501/let-s-develop-a-qr-code-generator-part-viii-different-sizes-1e0e
 
 NASA REED SOLOMON : https://ntrs.nasa.gov/citations/19900019023
 
